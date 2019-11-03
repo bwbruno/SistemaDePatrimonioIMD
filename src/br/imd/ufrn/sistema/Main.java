@@ -9,7 +9,38 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-      BensHashMap bens = new BensHashMap();
+      // Criando uma localização
+      LocalizacaoHashMap localizacaoHashMap = new LocalizacaoHashMap();
+      Localizacao localizacao = new Localizacao("Sala-B422", "Sala de aula dos cursos e graduação");
+      localizacaoHashMap.put(localizacao);
+
+      // Criando uma categoria
+      CategoriasHashMap categoriasHashMap = new CategoriasHashMap();
+      Categoria categoria  = new Categoria("Eletrônicos", "Aparelhos eletrônicos.");
+      categoriasHashMap.put(categoria);
+
+      // Criando bens
+      BensHashMap bensHashMap = new BensHashMap();
+      BensHashMap bensHashMap1 = new BensHashMap();
+      bensHashMap.put(new Bem("Projetor", "Projetor de imagens e vídeos de sala de aula.", localizacao, categoria));
+      bensHashMap1.put(new Bem("Impressora", "Impressora de imagens e vídeos de sala de aula.", localizacao, categoria));
+
+      // Exibindo bens
+      System.out.println(bensHashMap);
+      System.out.println(bensHashMap1);
+
+      // Salvando bens
+      CSV.write("bens.csv", bensHashMap);
+      CSV.write("bens.csv", bensHashMap1);
+
+
+
+
+
+
+
+      // Apenas comentei
+      /*BensHashMap bens = new BensHashMap();
 
       bens.put(new Bem("pc", ""));
       bens.put(new Bem("pc", ""));
@@ -45,6 +76,7 @@ public class Main {
 
       System.out.println();
       System.out.println(nbens);
+      */
 /*
 //Criação do objeto bot com as informações de acesso
       TelegramBot bot = TelegramBotAdapter.build("1025812891:AAHmk_u7H_SUneO2240kMuNqXVengNI15y4");

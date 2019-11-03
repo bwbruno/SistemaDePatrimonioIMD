@@ -35,6 +35,15 @@ public class Bem implements Indexable {
     this.categoria = categoria;
   }
 
+  public Bem(String nome, String descricao, Localizacao localizacao, Categoria categoria) {
+    inicialize();
+    this.codigo = getProximoCodigo();
+    this.nome = nome;
+    this.descricao = descricao;
+    this.localizacao = localizacao;
+    this.categoria = categoria;
+  }
+
   private void inicialize() {
     if (proximoCodigo == null)
       proximoCodigo = new HashSet<>();
