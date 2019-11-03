@@ -21,17 +21,14 @@ public class Main {
 
       // Criando bens
       BensHashMap bensHashMap = new BensHashMap();
-      BensHashMap bensHashMap1 = new BensHashMap();
       bensHashMap.put(new Bem("Projetor", "Projetor de imagens e vídeos de sala de aula.", localizacao, categoria));
-      bensHashMap1.put(new Bem("Impressora", "Impressora de imagens e vídeos de sala de aula.", localizacao, categoria));
+      bensHashMap.put(new Bem("Impressora", "Impressora de imagens e vídeos de sala de aula.", localizacao, categoria));
 
       // Exibindo bens
       System.out.println(bensHashMap);
-      System.out.println(bensHashMap1);
 
       // Salvando bens
       CSV.write("bens.csv", bensHashMap);
-      CSV.write("bens.csv", bensHashMap1);
 
 
 
