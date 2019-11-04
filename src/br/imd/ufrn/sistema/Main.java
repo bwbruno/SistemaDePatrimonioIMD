@@ -9,71 +9,68 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-      // Criando uma localização
-      LocalizacaoHashMap localizacaoHashMap = new LocalizacaoHashMap();
-      Localizacao localizacao = new Localizacao("Sala-B422", "Sala de aula dos cursos e graduação");
-      localizacaoHashMap.put(localizacao);
-
-      // Criando uma categoria
-      CategoriasHashMap categoriasHashMap = new CategoriasHashMap();
-      Categoria categoria  = new Categoria("Eletrônicos", "Aparelhos eletrônicos.");
-      categoriasHashMap.put(categoria);
-
-      // Criando bens
-      BensHashMap bensHashMap = new BensHashMap();
-      bensHashMap.put(new Bem("Projetor", "Projetor de imagens e vídeos de sala de aula.", localizacao, categoria));
-      bensHashMap.put(new Bem("Impressora", "Impressora de imagens e vídeos de sala de aula.", localizacao, categoria));
-
-      // Exibindo bens
-      System.out.println(bensHashMap);
-
-      // Salvando bens
-      CSV.write("bens.csv", bensHashMap);
-
-
-
+//      // Criando uma localização
+//      LocalizacaoHashMap localizacaoHashMap = new LocalizacaoHashMap();
+//      Localizacao localizacao = new Localizacao("Sala-B422", "Sala de aula dos cursos e graduação");
+//      localizacaoHashMap.put(localizacao);
+//
+//      // Criando uma categoria
+//      CategoriasHashMap categoriasHashMap = new CategoriasHashMap();
+//      Categoria categoria  = new Categoria("Eletrônicos", "Aparelhos eletrônicos.");
+//      categoriasHashMap.put(categoria);
+//
+//      // Criando bens
+//      BensHashMap bensHashMap = new BensHashMap();
+//      bensHashMap.put(new Bem("Projetor", "Projetor de imagens e vídeos de sala de aula.", localizacao, categoria));
+//      bensHashMap.put(new Bem("Impressora", "Impressora de imagens e vídeos de sala de aula.", localizacao, categoria));
+//
+//      // Exibindo bens
+//      System.out.println(bensHashMap);
+//
+//      // Salvando bens
+//      CSV.write("bens.csv", bensHashMap);
+//
 
 
 
 
-      // Apenas comentei
-      /*BensHashMap bens = new BensHashMap();
 
-      bens.put(new Bem("pc", ""));
-      bens.put(new Bem("pc", ""));
-      bens.put(new Bem("pc", ""));
-      bens.put(new Bem("pc", ""));
-      bens.put(new Bem("pc", ""));
-      bens.put(new Bem("pc", ""));
-
-      //System.out.println(bens);
-
-      bens.remove(3);
-      bens.remove(7);
-      bens.remove(1);
-      System.out.println();
-      //System.out.println(bens);
-      bens.put(new Bem("not", ""));
-      bens.put(new Bem("not", ""));
-      bens.put(new Bem("not", ""));
-      bens.put(new Bem("not", ""));
-      bens.put(new Bem("not", ""));
-      bens.put(new Bem("not", ""));
-      bens.put(new Bem("not", ""));
-
-      bens.remove(9);
-      bens.remove(8);
-      System.out.println();
-      //System.out.println(bens);
-
+      // TODO Testar adição depois de remover bens e refatorar o código
+      // Descomentei e comentei o que tinha feito antes acima.
+      BensHashMap bens = new BensHashMap();
       BensHashMap nbens = new BensHashMap();
 
-      CSV.write("bens.csv", bens);
+      // Lendo o arquivo antes de inserir contéudo.
       CSV.read("bens.csv", nbens);
+      int chave = 0; // Essa chave vai conter o valor da chave a ser usada na próxima inserção.
+
+      // Se ainda não existir conteúdo, gera o código como tu fez
+      if(nbens.isEmpty()) {
+        bens.put(new Bem("Ar-Condicionado", ""));
+        bens.put(new Bem("Mesa", ""));
+        CSV.write("bens.csv", bens);
+      } else { // Senão, soma +1 ao valor da última chave gerada.
+        chave = nbens.getLast() + 1; // getLast retorna o valor da última chave
+        bens.put(new Bem(chave++, "Microondas", ""));
+        bens.put(new Bem(chave++,"Cadeira", ""));
+        nbens.mixBens(bens); //  a função mixBens adiciona os novos bens sem remover os antigos.
+        CSV.write("bens.csv", bens);
+
+      }
 
       System.out.println();
-      System.out.println(nbens);
-      */
+      //System.out.println(bens);
+
+
+      System.out.println();
+//
+//      System.out.println("Linhas adicionadas");
+//      System.out.println(bens);
+//      System.out.println("Conteúdo do arquivo");
+//      System.out.println(nbens);
+//      System.out.println("\n");
+
+
 /*
 //Criação do objeto bot com as informações de acesso
       TelegramBot bot = TelegramBotAdapter.build("1025812891:AAHmk_u7H_SUneO2240kMuNqXVengNI15y4");

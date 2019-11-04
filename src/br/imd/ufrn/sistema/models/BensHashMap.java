@@ -39,6 +39,16 @@ public class BensHashMap implements Writeable, Readable {
     return new String[]{"codigo", "nome", "descricao", "categoria", "localizacao"};
   }
 
+  public boolean isEmpty(){ return bens.isEmpty(); }
+
+  public BensHashMap mixBens(BensHashMap xBem){
+    Set<Integer> chaves = bens.keySet();
+    for (Integer chave : chaves) {
+      xBem.put(bens.get(chave));
+    }
+    return xBem;
+  }
+
   @Override
   public void add(Map<String, String> m) {
     this.put(
@@ -54,5 +64,14 @@ public class BensHashMap implements Writeable, Readable {
       str.append("\t" + codigo + " = " + value + "\n");
     }
     return str.toString() + "}";
+  }
+
+  public int getLast(){
+    Set<Integer> chaves = bens.keySet();
+    int cont = 0;
+    for (Integer chave : chaves) {
+      cont = chave;
+    }
+    return cont;
   }
 }
