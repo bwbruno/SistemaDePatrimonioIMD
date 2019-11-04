@@ -27,3 +27,4 @@
 # Referências
 https://github.com/DenisIzmaylov/awesome-telegram-bots
 https://www.youtube.com/watch?v=EDn9g4j6wkw
+https://stackoverflow.com/questions/12365871/java-threads-for-two-while-loops

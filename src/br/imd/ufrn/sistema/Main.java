@@ -2,6 +2,7 @@ package br.imd.ufrn.sistema;
 
 import br.imd.ufrn.sistema.csv.CSV;
 import br.imd.ufrn.sistema.models.*;
+import br.imd.ufrn.sistema.telegrambot.SistemaDePatrimonioIMDBot;
 
 import java.io.IOException;
 
@@ -9,6 +10,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+      SistemaDePatrimonioIMDBot bot = new SistemaDePatrimonioIMDBot("");
+      bot.start();
 //      // Criando uma localização
 //      LocalizacaoHashMap localizacaoHashMap = new LocalizacaoHashMap();
 //      Localizacao localizacao = new Localizacao("Sala-B422", "Sala de aula dos cursos e graduação");

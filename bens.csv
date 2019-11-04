@@ -7,3 +7,5 @@
 7,not,,localizacao.getNome(),String.valueOf(categoria.getCodigo())
 10,not,,localizacao.getNome(),String.valueOf(categoria.getCodigo())
 11,not,,localizacao.getNome(),String.valueOf(categoria.getCodigo())
+12,Microondas,,localizacao.getNome(),String.valueOf(categoria.getCodigo())
+13,Cadeira,,localizacao.getNome(),String.valueOf(categoria.getCodigo())
