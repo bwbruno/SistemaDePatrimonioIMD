@@ -23,8 +23,8 @@ public class CategoriasHashMap implements Writeable, Readable {
   public void remove(Integer codigo) {
     if(!categorias.containsKey(codigo))
       return;
+
     categorias.remove(codigo);
-    Categoria.setProximoCodigo(codigo);
   }
 
   @Override

@@ -23,7 +23,6 @@ public class BensHashMap implements Writeable, Readable {
       return;
 
     bens.remove(codigo);
-    Bem.setProximoCodigo(codigo);
   }
 
   public List<String[]> getRows() {
@@ -41,19 +40,13 @@ public class BensHashMap implements Writeable, Readable {
 
   public boolean isEmpty(){ return bens.isEmpty(); }
 
-  public BensHashMap mixBens(BensHashMap xBem){
-    Set<Integer> chaves = bens.keySet();
-    for (Integer chave : chaves) {
-      xBem.put(bens.get(chave));
-    }
-    return xBem;
-  }
-
   @Override
   public void add(Map<String, String> m) {
-    this.put(
+    /* this.put(
       new Bem(Integer.parseInt(m.get("codigo")), m.get("nome"), m.get("descricao"))
     );
+
+     */
   }
   @Override
   public String toString() {

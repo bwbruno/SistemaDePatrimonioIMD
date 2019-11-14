@@ -1,6 +1,12 @@
 package br.imd.ufrn.sistema.models;
 
-public class Localizacao {
+import br.imd.ufrn.sistema.db.DAO;
+import br.imd.ufrn.sistema.db.LocalizacaoData;
+
+import java.util.List;
+
+public class Localizacao implements DAO {
+  private Integer codigo;
   private String nome;
   private String descricao;
 
@@ -9,8 +15,22 @@ public class Localizacao {
     this.descricao = descricao;
   }
 
+  public Localizacao(int codigo, String nome, String descricao) {
+    this.codigo = codigo;
+    this.nome = nome;
+    this.descricao = descricao;
+  }
+
+  public Integer getCodigo() {
+    return codigo;
+  }
+
   public String getNome() {
     return nome;
+  }
+
+  public String getDescricao() {
+    return descricao;
   }
 
   public String[] getRow() {
@@ -20,9 +40,33 @@ public class Localizacao {
   @Override
   public String toString() {
     return "Localizacao{" +
-      "nome='" + nome + '\'' +
+      "codigo='" + codigo + '\'' +
+      ", nome='" + nome + '\'' +
       ", descricao='" + descricao + '\'' +
       '}';
+  }
+
+
+  private static LocalizacaoData dao = new LocalizacaoData();
+
+  public void save() {
+    if (codigo != null && dao.find(codigo) != null)
+      dao.update(this);
+    else
+      dao.create(this);
+  }
+
+  public void delete() {
+    if (dao.find(codigo) != null)
+      dao.delete(this);
+  }
+
+  public static List<Localizacao> all(){
+    return dao.all();
+  }
+
+  public static Localizacao find(int key) {
+    return dao.find(key);
   }
 
 }

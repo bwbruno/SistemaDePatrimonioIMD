@@ -1,34 +1,28 @@
 package br.imd.ufrn.sistema.models;
 
+import br.imd.ufrn.sistema.db.CategoriaData;
+import br.imd.ufrn.sistema.db.DAO;
+
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class Categoria implements Indexable {
+public class Categoria implements DAO {
 
-  public static Set<Integer> proximoCodigo;
-  private int codigo;
+  private Integer codigo;
   private String nome;
   private String descricao;
 
+  public Categoria(String nome, String descricao) {
+    this.nome = nome;
+    this.descricao = descricao;
+  }
+
   public Categoria(int codigo, String nome, String descricao) {
-    inicialize();
     this.codigo = codigo;
     this.nome = nome;
     this.descricao = descricao;
   }
-
-  public Categoria(String nome, String descricao) {
-    inicialize();
-    this.codigo = getProximoCodigo();
-    this.nome = nome;
-    this.descricao = descricao;
-  }
-
-  private void inicialize() {
-    if (proximoCodigo == null)
-      proximoCodigo = new HashSet<>();
-  }
-
 
   public int getCodigo() {
     return codigo;
@@ -42,15 +36,6 @@ public class Categoria implements Indexable {
     return descricao;
   }
 
-
-  public static void setProximoCodigo(Integer codigo) {
-    Indexable.setNextID(proximoCodigo, codigo);
-  }
-
-  private int getProximoCodigo() {
-    return getProximoCodigo(proximoCodigo);
-  }
-
   @Override
   public String toString() {
     return "Categoria{" +
@@ -62,5 +47,29 @@ public class Categoria implements Indexable {
 
   public String[] getRow() {
     return new String[]{ String.valueOf(codigo), nome, descricao };
+  }
+
+
+
+  private static CategoriaData dao = new CategoriaData();
+
+  public void save() {
+    if (codigo != null && dao.find(codigo) != null)
+      dao.update(this);
+    else
+      dao.create(this);
+  }
+
+  public void delete() {
+    if (dao.find(codigo) != null)
+      dao.delete(this);
+  }
+
+  public static List<Categoria> all(){
+    return dao.all();
+  }
+
+  public static Categoria find(int key) {
+    return dao.find(key);
   }
 }

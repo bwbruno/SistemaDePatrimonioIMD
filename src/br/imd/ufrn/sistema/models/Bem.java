@@ -1,64 +1,52 @@
 package br.imd.ufrn.sistema.models;
 
-import java.util.*;
+import br.imd.ufrn.sistema.db.BemData;
+import br.imd.ufrn.sistema.db.DAO;
 
-public class Bem implements Indexable {
+import java.util.List;
 
-  public static Set<Integer> proximoCodigo;
-  private int codigo;
+public class Bem implements DAO {
+
+  private Integer codigo;
   private String nome;
   private String descricao;
   private Localizacao localizacao;
   private Categoria categoria;
 
-
-  public Bem(String nome, String descricao) {
-    inicialize();
-    this.codigo = getProximoCodigo();
+  public Bem(String nome, String descricao, Localizacao localizacao, Categoria categoria) {
     this.nome = nome;
     this.descricao = descricao;
+    this.localizacao = localizacao;
+    this.categoria = categoria;
   }
 
-  public Bem(int codigo, String nome, String descricao) {
-    inicialize();
-    this.codigo = codigo;
-    this.nome = nome;
-    this.descricao = descricao;
-  }
 
   public Bem(int codigo, String nome, String descricao, Localizacao localizacao, Categoria categoria) {
-    inicialize();
     this.codigo = codigo;
     this.nome = nome;
     this.descricao = descricao;
     this.localizacao = localizacao;
     this.categoria = categoria;
-  }
-
-  public Bem(String nome, String descricao, Localizacao localizacao, Categoria categoria) {
-    inicialize();
-    this.codigo = getProximoCodigo();
-    this.nome = nome;
-    this.descricao = descricao;
-    this.localizacao = localizacao;
-    this.categoria = categoria;
-  }
-
-  private void inicialize() {
-    if (proximoCodigo == null)
-      proximoCodigo = new HashSet<>();
   }
 
   public int getCodigo() {
     return codigo;
   }
 
-  public static void setProximoCodigo(Integer codigo) {
-    Indexable.setNextID(proximoCodigo, codigo);
+  public String getNome() {
+    return nome;
   }
 
-  private int getProximoCodigo() {
-    return getProximoCodigo(proximoCodigo);
+  public String getDescricao() {
+    return descricao;
+  }
+
+  public Localizacao getLocalizacao() {
+    return localizacao;
+  }
+
+  public Categoria getCategoria() {
+    return categoria;
   }
 
   public String[] getRow() {
@@ -74,6 +62,28 @@ public class Bem implements Indexable {
       ", localizacao=" + localizacao +
       ", categoria=" + categoria +
       '}';
+  }
+
+  private static BemData dao = new BemData();
+
+  public void save() {
+    if (codigo != null && dao.find(codigo) != null)
+      dao.update(this);
+    else
+      dao.create(this);
+  }
+
+  public void delete() {
+    if (dao.find(codigo) != null)
+      dao.delete(this);
+  }
+
+  public static List<Bem> all(){
+    return dao.all();
+  }
+
+  public static Bem find(int key) {
+    return dao.find(key);
   }
 
 }

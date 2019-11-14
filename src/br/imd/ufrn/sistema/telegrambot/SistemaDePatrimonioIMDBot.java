@@ -53,7 +53,7 @@ public class SistemaDePatrimonioIMDBot extends Thread {
 
   private void sendMessage(String message) {
     sendTyping(update);
-    sendResponse =  bot.execute(new SendMessage(update.message().chat().id(), message));;
+    sendResponse = bot.execute(new SendMessage(update.message().chat().id(), message));
   }
 
   private void sendTyping(Update update) {
@@ -70,9 +70,11 @@ public class SistemaDePatrimonioIMDBot extends Thread {
   private void handleStartCommand(Message message) {
     SendMessage sm = new SendMessage(update.message().chat().id(), "" +
       "*Comandos para manipular o Sistema de Patrimônio IMD:*\n" +
-      "/start - iniciar sistema\n" +
-      "/table - imprimir uma tabela\n" +
-      "/buscar - pesquisar\n" +
+      "/start - show this welcome screen\n" +
+      "/show - get variable number of items in given category (if no id provided, will show all items in category)\n" +
+      "/create - to create new item, e.g. '/create products title=IPhone price_rub=10'\n" +
+      "/update - to change item info, e.g. '/update products 1 price_rub=999'\n" +
+      "/delete - to remove item, e.g. '/delete products 1'\n" +
       "\n" +
       "Link [Github](https://github.com/bwbruno/SistemaDePatrimonioIMD)");
     sendResponse =  bot.execute(sm.parseMode(ParseMode.Markdown));
@@ -121,7 +123,7 @@ public class SistemaDePatrimonioIMDBot extends Thread {
         this.update = update;
         //atualização do off-set
         m = update.updateId() + 1;
-
+        System.out.println("Recebendo user:" + update.message().from().firstName());
         System.out.println("Recebendo mensagem:" + update.message().text());
         handleTextMessage(update.message());
 
