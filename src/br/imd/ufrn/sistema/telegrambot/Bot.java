@@ -1,5 +1,8 @@
 package br.imd.ufrn.sistema.telegrambot;
 
+import br.imd.ufrn.sistema.models.Bem;
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.TelegramBotAdapter;
 import com.pengrad.telegrambot.model.Message;
@@ -13,41 +16,41 @@ import com.pengrad.telegrambot.response.BaseResponse;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class SistemaDePatrimonioIMDBot extends Thread {
+public class Bot extends Thread {
 
-  private static String COMMAND_START = "/start";
-  private static String COMMAND_TABLE = "/table";
-
-  private final String token;
   private final TelegramBot bot;
-  //objeto responsável por receber as mensagens
   GetUpdatesResponse updatesResponse;
-  //objeto responsável por gerenciar o envio de respostas
   SendResponse sendResponse;
-  //objeto responsável por gerenciar o envio de ações do chat
   BaseResponse baseResponse;
-
   Update update;
-  int m = 0;
 
+  BotArgs botArgs;
+  JCommander jBotCommander;
 
-  public SistemaDePatrimonioIMDBot(String token) {
-    this.token = token;
+  public Bot(String token) {
     this.bot = TelegramBotAdapter.build(token);
+     botArgs = new BotArgs();
+     jBotCommander = JCommander.newBuilder().addObject(botArgs).build();
   }
 
   private void handleTextMessage(Message message) {
-    if (!isCommand(message))
+
+    String args[] = message.text().split(" ");
+    jBotCommander.parse(args);
+
+    if (args[0].equals("create"))
+      handleCreateCommand();
+
+    else
       sendMessage("Não entendi...");
+  }
 
-    else if (message.text().equals(COMMAND_START))
-      handleStartCommand(message);
+  private void handleCreateCommand() {
 
-    else if (message.text().equals(COMMAND_TABLE))
-      handleTableCommand(message);
-
+    //TODO
 
   }
 
@@ -92,24 +95,15 @@ public class SistemaDePatrimonioIMDBot extends Thread {
     return;
   }
 
-  String getToken() {
-    return token;
-  }
-
-  TelegramBot getBot() {
-    return bot;
-  }
-
   @Override
   public void run() {
     loop();
   }
 
   private void loop() {
-    //controle de off-set, isto é, a partir deste ID será lido as mensagens pendentes na fila
 
+    int m = 0;
 
-    //loop infinito pode ser alterado por algum timer de intervalo curto
     while (true) {
 
       //executa comando no Telegram para obter as mensagens pendentes a partir de um off-set (limite inicial)
@@ -122,19 +116,10 @@ public class SistemaDePatrimonioIMDBot extends Thread {
 
         this.update = update;
         //atualização do off-set
-        m = update.updateId() + 1;
-        System.out.println("Recebendo user:" + update.message().from().firstName());
+        m = update.updateId()+1;
+        System.out.println(m);
         System.out.println("Recebendo mensagem:" + update.message().text());
         handleTextMessage(update.message());
-
-        //envio de "Escrevendo" antes de enviar a resposta
-        //baseResponse = bot.execute(new SendChatAction(update.message().chat().id(), ChatAction.typing.name()));
-
-        //verificação de ação de chat foi enviada com sucesso
-        //System.out.println("Resposta de Chat Action Enviada?" + baseResponse.isOk());
-
-        //envio da mensagem de resposta
-        //sendResponse = bot.execute(new SendMessage(update.message().chat().id(), "Não entendi..."));
 
         //verificação de mensagem enviada com sucesso
         System.out.println("Mensagem Enviada?" + sendResponse.isOk());
