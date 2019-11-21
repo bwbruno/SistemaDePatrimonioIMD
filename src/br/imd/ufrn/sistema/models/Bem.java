@@ -2,6 +2,7 @@ package br.imd.ufrn.sistema.models;
 
 import br.imd.ufrn.sistema.db.BemData;
 import br.imd.ufrn.sistema.db.DAO;
+import br.imd.ufrn.sistema.telegrambot.BotArgs;
 
 import java.util.List;
 
@@ -27,6 +28,10 @@ public class Bem implements DAO {
     this.descricao = descricao;
     this.localizacao = localizacao;
     this.categoria = categoria;
+  }
+
+  public Bem() {
+
   }
 
   public int getCodigo() {
@@ -59,8 +64,8 @@ public class Bem implements DAO {
       "codigo=" + codigo +
       ", nome='" + nome + '\'' +
       ", descricao='" + descricao + '\'' +
-      ", localizacao=" + localizacao +
-      ", categoria=" + categoria +
+      ", localizacao=" + localizacao.getNome() +
+      ", categoria=" + categoria.getNome() +
       '}';
   }
 
@@ -84,6 +89,39 @@ public class Bem implements DAO {
 
   public static Bem find(int key) {
     return dao.find(key);
+  }
+
+  public String allString(){
+
+    List<Bem> bens = all();
+    String str = new String();
+
+    str += "*ID - NOME - DESCRIÇÃO - LOCAL - CATEGORIA*\n";
+
+    for (Bem bem: bens) {
+      str += bem.getCodigo() + " - ";
+      str += bem.getNome() + " - ";
+      str += bem.getDescricao() + " - ";
+      str += bem.getLocalizacao().getNome() + " - ";
+      str += bem.getCategoria().getNome();
+      str += "\n";
+    }
+    return str + "";
+  }
+
+  @Override
+  public String findString(int key) {
+    return find(key).toString();
+  }
+
+  @Override
+  public void setBotArgs(BotArgs botArgs) {
+    if (botArgs.getCodigo() != null)
+      codigo = botArgs.getCodigo();
+    nome = String.join(" ", botArgs.getNome());
+    descricao = String.join(" ", botArgs.getDescricao());
+    localizacao = Localizacao.find(botArgs.getLocalizacaoid());
+    categoria = Categoria.find(botArgs.getCategoriaid());
   }
 
 }

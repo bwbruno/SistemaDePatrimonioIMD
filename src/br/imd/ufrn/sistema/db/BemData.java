@@ -88,11 +88,15 @@ public class BemData extends SQLiteDB {
     try {
       PreparedStatement stm = conn.prepareStatement("UPDATE Bem SET " +
         "Nome = ?," +
-        "Descricao = ? WHERE ID_Bem = ?;");
+        "Descricao = ?," +
+        "ID_Categoria = ?," +
+        "ID_Localizacao = ? WHERE ID_Bem = ?;");
 
       stm.setString(1, b.getNome());
       stm.setString(2, b.getDescricao());
-      stm.setInt(3, b.getCodigo());
+      stm.setString(3, String.valueOf(b.getCategoria().getCodigo()));
+      stm.setString(4, String.valueOf(b.getLocalizacao().getCodigo()));
+      stm.setInt(5, b.getCodigo());
 
       stm.executeUpdate();
 

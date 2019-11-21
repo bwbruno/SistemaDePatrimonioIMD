@@ -2,6 +2,7 @@ package br.imd.ufrn.sistema.models;
 
 import br.imd.ufrn.sistema.db.DAO;
 import br.imd.ufrn.sistema.db.LocalizacaoData;
+import br.imd.ufrn.sistema.telegrambot.BotArgs;
 
 import java.util.List;
 
@@ -67,6 +68,22 @@ public class Localizacao implements DAO {
 
   public static Localizacao find(int key) {
     return dao.find(key);
+  }
+
+  @Override
+  public String allString() {
+    return null;
+  }
+
+  @Override
+  public String findString(int key) {
+    return null;
+  }
+
+  @Override
+  public void setBotArgs(BotArgs botArgs) {
+    nome = String.join(" ", botArgs.getNome());
+    descricao = String.join(" ", botArgs.getDescricao());
   }
 
 }

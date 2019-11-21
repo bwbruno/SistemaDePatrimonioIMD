@@ -2,10 +2,9 @@ package br.imd.ufrn.sistema.models;
 
 import br.imd.ufrn.sistema.db.CategoriaData;
 import br.imd.ufrn.sistema.db.DAO;
+import br.imd.ufrn.sistema.telegrambot.BotArgs;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Categoria implements DAO {
 
@@ -71,5 +70,21 @@ public class Categoria implements DAO {
 
   public static Categoria find(int key) {
     return dao.find(key);
+  }
+
+  @Override
+  public String allString() {
+    return null;
+  }
+
+  @Override
+  public String findString(int key) {
+    return null;
+  }
+
+  @Override
+  public void setBotArgs(BotArgs botArgs) {
+    nome = String.join(" ", botArgs.getNome());
+    descricao = String.join(" ", botArgs.getDescricao());
   }
 }

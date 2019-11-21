@@ -12,14 +12,20 @@ public class BotArgs {
   private boolean help;
 
   @Parameter(names = {"/c", "/create"})
-  public String create;
+  private String create;
 
-  @Parameter(names = {"/s", "/show"}, variableArity = true,
+  @Parameter(names = {"/s", "/show"},
     description = "Exibe todas as localizações, categorias ou bens cadastrados.")
-  public List<String> show = new ArrayList<>();
+  private String show;
+
+  @Parameter(names = {"/f", "/find"})
+  private String find;
+
+  @Parameter(names = {"/d", "/delete"})
+  private String delete;
 
   @Parameter(names = {"--codigo", "-c"})
-  private int codigo;
+  private Integer codigo;
 
   @Parameter(names = {"--nome", "-n"}, variableArity = true)
   private List<String> nome = new ArrayList<>();
@@ -33,4 +39,39 @@ public class BotArgs {
   @Parameter(names = {"--categoriaid", "-cid"}, variableArity = true)
   private int categoriaid;
 
+  public String getCreate() {
+    return create;
+  }
+
+  public String getShow() {
+    return show;
+  }
+
+  public String getFind() {
+    return find;
+  }
+
+  public String getNome() {
+    return String.join(" ", nome);
+  }
+
+  public String getDescricao() {
+    return String.join(" ", descricao);
+  }
+
+  public Integer getCodigo() {
+    return codigo;
+  }
+
+  public int getLocalizacaoid() {
+    return localizacaoid;
+  }
+
+  public int getCategoriaid() {
+    return categoriaid;
+  }
+
+  public String getDelete() {
+    return delete;
+  }
 }
