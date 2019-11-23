@@ -25,6 +25,9 @@
 # Conclusão
 
 # Referências
+
+[Java 8 Concurrency Tutorial: Threads and Executors](https://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-examples/)
+[How to Run Multiple Threads Concurrently in Java? ExecutorService Approach](https://crunchify.com/how-to-run-multiple-threads-concurrently-in-java-executorservice-approach/)
 https://github.com/DenisIzmaylov/awesome-telegram-bots
 https://www.youtube.com/watch?v=EDn9g4j6wkw
 https://stackoverflow.com/questions/12365871/java-threads-for-two-while-loops

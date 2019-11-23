@@ -1,6 +1,7 @@
 package br.imd.ufrn.sistema.telegrambot;
 
 import br.imd.ufrn.sistema.telegrambot.command.Command;
+import br.imd.ufrn.sistema.telegrambot.command.CommandException;
 import br.imd.ufrn.sistema.telegrambot.command.CommandFactory;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.TelegramBotAdapter;
@@ -16,6 +17,7 @@ import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Bot extends Thread {
 
@@ -36,31 +38,40 @@ public class Bot extends Thread {
   }
 
   public String executeCommandUsingFactory(String args[]) {
-    Command targetCommand = CommandFactory
-      .getCommand(args[0])
-      .orElseThrow(() -> new IllegalArgumentException("Command inválido"));
+    try {
+      Command targetCommand = CommandFactory
+        .getCommand(args[0])
+        .orElseThrow(() -> new IllegalArgumentException("Command inválido"));
+      return targetCommand.execute(args);
 
-    return targetCommand.execute(args);
+    } catch (CommandException e) {
+      return e.getMessage();
+    }
   }
 
   private void sendMessage(String message) {
     sendTyping(update);
     SendMessage sm = new SendMessage(update.message().chat().id(), message);
-    sendResponse =  bot.execute(sm.parseMode(ParseMode.Markdown));
+    sendResponse =  bot.execute(sm.parseMode(ParseMode.HTML));
   }
 
   private void sendTyping(Update update) {
       baseResponse = bot.execute(new SendChatAction(update.message().chat().id(), ChatAction.typing.name()));
   }
 
-  @Override
+
   public void run() {
-    loop();
+    try {
+      loop();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
-  private void loop() {
+  private void loop() throws InterruptedException {
     int m = 0;
     while (true) {
+      TimeUnit.SECONDS.sleep(1);
       updatesResponse = bot.execute(new GetUpdates().limit(100).offset(m));
       List<Update> updates = updatesResponse.updates();
 
@@ -69,7 +80,13 @@ public class Bot extends Thread {
         m = update.updateId()+1;
         System.out.println(m);
         System.out.println("Recebendo mensagem: " + update.message().text());
-        handleTextMessage(update.message());
+
+        try {
+          handleTextMessage(update.message());
+        } catch (Exception e) {
+          sendMessage("Comando inválido.");
+        }
+
         System.out.println("Mensagem Enviada? " + sendResponse.isOk());
       }
     }

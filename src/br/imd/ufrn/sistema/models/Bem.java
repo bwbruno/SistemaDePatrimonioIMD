@@ -96,7 +96,7 @@ public class Bem implements DAO {
     List<Bem> bens = all();
     String str = new String();
 
-    str += "*ID - NOME - DESCRIÇÃO - LOCAL - CATEGORIA*\n";
+    str += "<b>ID - NOME - DESCRIÇÃO - LOCAL - CATEGORIA</b>\n";
 
     for (Bem bem: bens) {
       str += bem.getCodigo() + " - ";
