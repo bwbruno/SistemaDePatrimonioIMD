@@ -1,17 +1,18 @@
 package br.imd.ufrn.sistema.controllers;
 
-import br.imd.ufrn.sistema.models.Bem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class HomeController {
+
+  public static ArrayList<OnChangeScreen> listeners;
 
   @FXML
   public Button btnBens;
@@ -25,6 +26,7 @@ public class HomeController {
   @FXML
   protected void initialize() {
     try {
+      listeners = new ArrayList<>();
       Node node = FXMLLoader.load(getClass().getResource("../views/ListViewBens.fxml"));
       scrollPane.setContent(node);
     } catch (IOException e) {
@@ -55,4 +57,26 @@ public class HomeController {
       e.printStackTrace();
     }
   }
+
+
+  public void novoWindow(ActionEvent actionEvent) {
+    try {
+      BemDetailsController bemDetailsController = new BemDetailsController();
+      bemDetailsController.display("Novo");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void addOnChangeScreenListener(OnChangeScreen newListener) {
+    listeners.add(newListener);
+  }
+
+  private static void notify(String newScreen, Object userData) {
+    for (OnChangeScreen l: listeners) {
+      l.onScreenChanged(newScreen, userData);
+    }
+  }
+
+
 }
