@@ -3,7 +3,6 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.imd.ufrn.sistema.controllers.ListViewBens">
    <children>
       <ListView fx:id="lvBens" prefHeight="411.0" prefWidth="734.0" />

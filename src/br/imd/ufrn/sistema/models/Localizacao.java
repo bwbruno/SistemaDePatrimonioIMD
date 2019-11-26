@@ -16,7 +16,7 @@ public class Localizacao implements DAO {
     this.descricao = descricao;
   }
 
-  public Localizacao(int codigo, String nome, String descricao) {
+  public Localizacao(Integer codigo, String nome, String descricao) {
     this.codigo = codigo;
     this.nome = nome;
     this.descricao = descricao;

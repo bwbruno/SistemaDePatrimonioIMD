@@ -22,7 +22,7 @@ public class Bem implements DAO {
   }
 
 
-  public Bem(int codigo, String nome, String descricao, Localizacao localizacao, Categoria categoria) {
+  public Bem(Integer codigo, String nome, String descricao, Localizacao localizacao, Categoria categoria) {
     this.codigo = codigo;
     this.nome = nome;
     this.descricao = descricao;
@@ -34,7 +34,7 @@ public class Bem implements DAO {
 
   }
 
-  public int getCodigo() {
+  public Integer getCodigo() {
     return codigo;
   }
 

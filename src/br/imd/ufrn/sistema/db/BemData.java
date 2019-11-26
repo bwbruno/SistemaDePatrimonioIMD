@@ -154,4 +154,33 @@ public class BemData extends SQLiteDB {
 
     return result;
   }
+
+  public List<Bem> findNome(String str) {
+    ArrayList<Bem> result = new ArrayList<>();
+
+    open();
+
+    try {
+      PreparedStatement stm = conn.prepareStatement("SELECT * FROM Bem WHERE Nome LIKE '%" + str + "%';");
+      ResultSet rs = stm.executeQuery();
+
+      while (rs.next()) {
+        Bem b = new Bem(
+          rs.getInt(1),
+          rs.getString(2),
+          rs.getString(3),
+          Localizacao.find(rs.getInt(5)),
+          Categoria.find(rs.getInt(4))
+        );
+
+        result.add(b);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      close();
+    }
+
+    return result;
+  }
 }

@@ -17,13 +17,13 @@ public class Categoria implements DAO {
     this.descricao = descricao;
   }
 
-  public Categoria(int codigo, String nome, String descricao) {
+  public Categoria(Integer codigo, String nome, String descricao) {
     this.codigo = codigo;
     this.nome = nome;
     this.descricao = descricao;
   }
 
-  public int getCodigo() {
+  public Integer getCodigo() {
     return codigo;
   }
 

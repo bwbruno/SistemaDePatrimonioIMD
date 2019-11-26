@@ -4,10 +4,12 @@ import br.imd.ufrn.sistema.models.Bem;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
+import java.util.ArrayList;
+
 public class ListViewBens {
 
   @FXML
-  ListView<Bem> lvBens;
+  private ListView<Bem> lvBens;
 
   @FXML
   protected void initialize() {
@@ -19,5 +21,13 @@ public class ListViewBens {
     for (Bem bem: Bem.all()) {
       lvBens.getItems().add(bem);
     }
+  }
+
+  public void getSelectedItem() {
+    System.out.println(lvBens.getSelectionModel().getSelectedItem());
+  }
+
+  public ListView<Bem> getLvBens() {
+    return lvBens;
   }
 }

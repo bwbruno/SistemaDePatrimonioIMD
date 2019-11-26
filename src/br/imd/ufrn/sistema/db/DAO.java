@@ -13,5 +13,4 @@ public interface DAO {
   public String allString();
   public String findString(int key);
   public void setBotArgs(BotArgs botArgs);
-
 }
