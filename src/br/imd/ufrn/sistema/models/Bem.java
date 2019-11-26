@@ -91,6 +91,14 @@ public class Bem implements DAO {
     return dao.find(key);
   }
 
+  public static List<Bem> findNome(String nome) {
+    return dao.find("Nome", nome);
+  }
+
+  public static List<Bem> findDescricao(String nome) {
+    return dao.find("Descricao", nome);
+  }
+
   public String allString(){
 
     List<Bem> bens = all();

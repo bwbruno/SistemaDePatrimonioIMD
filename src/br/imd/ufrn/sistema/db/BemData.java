@@ -155,13 +155,13 @@ public class BemData extends SQLiteDB {
     return result;
   }
 
-  public List<Bem> findNome(String str) {
+  public List<Bem> find(String column, String str) {
     ArrayList<Bem> result = new ArrayList<>();
 
     open();
 
     try {
-      PreparedStatement stm = conn.prepareStatement("SELECT * FROM Bem WHERE Nome LIKE '%" + str + "%';");
+      PreparedStatement stm = conn.prepareStatement("SELECT * FROM Bem WHERE " + column + " LIKE '%" + str + "%';");
       ResultSet rs = stm.executeQuery();
 
       while (rs.next()) {
@@ -183,4 +183,6 @@ public class BemData extends SQLiteDB {
 
     return result;
   }
+
+
 }

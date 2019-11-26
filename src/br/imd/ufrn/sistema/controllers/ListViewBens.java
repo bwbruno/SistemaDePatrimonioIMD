@@ -23,10 +23,6 @@ public class ListViewBens {
     }
   }
 
-  public void getSelectedItem() {
-    System.out.println(lvBens.getSelectionModel().getSelectedItem());
-  }
-
   public ListView<Bem> getLvBens() {
     return lvBens;
   }

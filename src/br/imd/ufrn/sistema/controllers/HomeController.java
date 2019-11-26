@@ -3,14 +3,13 @@ package br.imd.ufrn.sistema.controllers;
 import br.imd.ufrn.sistema.models.Bem;
 import br.imd.ufrn.sistema.models.Categoria;
 import br.imd.ufrn.sistema.models.Localizacao;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 
@@ -24,6 +23,10 @@ public class HomeController {
   private Button btnLocalizacoes;
   @FXML
   private ScrollPane scrollPane;
+  @FXML
+  private TextField tfPesquisar;
+  @FXML
+  private ChoiceBox<String> cbPesquisar;
 
   private ListView<Bem> lvBens;
   private ListView<Categoria> lvCategorias;
@@ -32,18 +35,19 @@ public class HomeController {
 
   @FXML
   protected void initialize() {
-      loadListView("lvBens");
+    loadListView("lvBens");
+    populateChoiceBoxPesquisar();
   }
 
   public void handleClicks(ActionEvent actionEvent) {
-      if (actionEvent.getSource() == btnBens)
-        loadListView("lvBens");
+    if (actionEvent.getSource() == btnBens)
+      loadListView("lvBens");
 
-      if (actionEvent.getSource() == btnCategorias)
-        loadListView("lvCategorias");
+    if (actionEvent.getSource() == btnCategorias)
+      loadListView("lvCategorias");
 
-      if (actionEvent.getSource() == btnLocalizacoes)
-        loadListView("lvLocalizacoes");
+    if (actionEvent.getSource() == btnLocalizacoes)
+      loadListView("lvLocalizacoes");
   }
 
   private void loadListView(String listView) {
@@ -146,6 +150,42 @@ public class HomeController {
       alert.showAndWait();
     }
 
+  }
+
+  public void btnPesquisarOkAction(ActionEvent actionEvent) {
+
+    String opcao = cbPesquisar.getSelectionModel().getSelectedItem();
+    String inputText = tfPesquisar.getText();
+    lvBens.getItems().clear();
+
+    if (opcao.equals("Codigo") && !inputText.isEmpty()) {
+      Bem bem = Bem.find(Integer.valueOf(inputText));
+      lvBens.getItems().add(bem);
+    }
+
+    if (opcao.equals("Nome")) {
+      for (Bem bem: Bem.findNome(inputText))
+        lvBens.getItems().add(bem);
+    }
+
+    if (opcao.equals("Descricao")) {
+      for (Bem bem: Bem.findDescricao(inputText))
+        lvBens.getItems().add(bem);
+    }
+
+    if (inputText.isEmpty()) {
+      reloadListView();
+    }
+
+  }
+
+  public void populateChoiceBoxPesquisar() {
+    ObservableList<String> opcoes = FXCollections.observableArrayList(
+      "Codigo", "Nome", "Descricao"
+    );
+    cbPesquisar.setItems(opcoes);
+    cbPesquisar.getSelectionModel().selectFirst();
+    cbPesquisar.getSelectionModel().selectNext();
   }
 
 

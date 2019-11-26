@@ -1,5 +1,6 @@
 package br.imd.ufrn.sistema;
 
+import br.imd.ufrn.sistema.models.Bem;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -53,11 +54,11 @@ public class Main extends Application {
 
   public static void main(String[] args) {
 
-        //Bot bot = new Bot("835498287:AAF5lpKlz6ZrK9lfwktx8ZikUVLAiVkBeTs");
+    //Bot bot = new Bot("835498287:AAF5lpKlz6ZrK9lfwktx8ZikUVLAiVkBeTs");
 
-    ExecutorService executor = Executors.newFixedThreadPool(2);
-    Runnable bot = new Bot("835498287:AAF5lpKlz6ZrK9lfwktx8ZikUVLAiVkBeTs");
-    executor.execute(bot);
+    //ExecutorService executor = Executors.newFixedThreadPool(2);
+    //Runnable bot = new Bot("835498287:AAF5lpKlz6ZrK9lfwktx8ZikUVLAiVkBeTs");
+    //executor.execute(bot);
 
     launch(args);
 
