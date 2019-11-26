@@ -22,6 +22,10 @@ public class Localizacao implements DAO {
     this.descricao = descricao;
   }
 
+  public Localizacao() {
+
+  }
+
   public Integer getCodigo() {
     return codigo;
   }
@@ -72,12 +76,23 @@ public class Localizacao implements DAO {
 
   @Override
   public String allString() {
-    return null;
+    List<Localizacao> localizacoes = all();
+    String str = new String();
+
+    str += "<b>ID - NOME - DESCRIÇÃO</b>\n";
+
+    for (Localizacao c: localizacoes) {
+      str += c.getCodigo() + " - ";
+      str += c.getNome() + " - ";
+      str += c.getDescricao();
+      str += "\n";
+    }
+    return str + "";
   }
 
   @Override
   public String findString(int key) {
-    return null;
+    return find(key).toString();
   }
 
   @Override

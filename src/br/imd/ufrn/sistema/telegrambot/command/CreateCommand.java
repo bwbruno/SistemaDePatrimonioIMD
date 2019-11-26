@@ -2,6 +2,7 @@ package br.imd.ufrn.sistema.telegrambot.command;
 
 import br.imd.ufrn.sistema.db.DAO;
 import br.imd.ufrn.sistema.db.DAOFactory;
+import br.imd.ufrn.sistema.models.Bem;
 import br.imd.ufrn.sistema.telegrambot.BotArgs;
 import com.beust.jcommander.JCommander;
 
@@ -22,7 +23,9 @@ public class CreateCommand implements Command {
         return new IllegalArgumentException("");
       });
 
-    parametersValidate(botArgs);
+    if (daoTarget instanceof Bem)
+      parametersValidate(botArgs);
+
     daoTarget.setBotArgs(botArgs);
     daoTarget.save();
 
@@ -31,7 +34,7 @@ public class CreateCommand implements Command {
 
   public void parametersValidate(BotArgs args) throws CommandException {
     String message = "Erro. O comando /create deve seguir o senguinte formato:";
-    if (args.getCodigo() == null || args.getCategoriaid() == 0 || args.getLocalizacaoid() == 0) {
+    if (args.getCategoriaid() == 0 || args.getLocalizacaoid() == 0) {
       throw new CommandException(message);
     }
 

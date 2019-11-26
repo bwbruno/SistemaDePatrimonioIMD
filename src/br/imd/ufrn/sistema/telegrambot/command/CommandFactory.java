@@ -13,6 +13,12 @@ public class CommandFactory {
     commandMap.put("/find", new FindCommand());
     commandMap.put("/delete", new DeleteCommand());
     commandMap.put("/help", new HelpCommand());
+    commandMap.put("/start", new HelpCommand());
+    commandMap.put("/c", new CreateCommand());
+    commandMap.put("/s", new ShowCommand());
+    commandMap.put("/f", new FindCommand());
+    commandMap.put("/d", new DeleteCommand());
+    commandMap.put("/h", new HelpCommand());
   }
 
   public static Optional<Command> getCommand(String command) {

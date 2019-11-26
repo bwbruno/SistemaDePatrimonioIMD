@@ -23,6 +23,10 @@ public class Categoria implements DAO {
     this.descricao = descricao;
   }
 
+  public Categoria() {
+
+  }
+
   public Integer getCodigo() {
     return codigo;
   }
@@ -74,12 +78,24 @@ public class Categoria implements DAO {
 
   @Override
   public String allString() {
-    return null;
+
+    List<Categoria> categorias = all();
+    String str = new String();
+
+    str += "<b>ID - NOME - DESCRIÇÃO</b>\n";
+
+    for (Categoria c: categorias) {
+      str += c.getCodigo() + " - ";
+      str += c.getNome() + " - ";
+      str += c.getDescricao();
+      str += "\n";
+    }
+    return str + "";
   }
 
   @Override
   public String findString(int key) {
-    return null;
+    return find(key).toString();
   }
 
   @Override
